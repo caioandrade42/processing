@@ -1,37 +1,5 @@
 import random
 
-vetor = [None]*10
-for i in range(10):
-    vetor[i] = random.randint(0, 1)
-    
-
-str1 = ""
-str2 = ""
-x1 = float()
-x2 = float()
-final = float()
-
-sub1 = vetor[0:5]
-sub2 = vetor[5:10]
-
-for i in range(5):
-    str1 += str(sub1[i])
-    str2 += str(sub2[i])
-    
-bin1 = int(str1, 2)
-bin2 = int(str2, 2)
-
-x1 = bin1/31*6
-x2 = bin2/31*6 
-
-final = 0.25*x1**4-3*x1**3+11*x1**2-13*x1+0.25*x2**4-3*x2**3+11*x2**2-13*x2
-
-print(bin1)
-print(bin2)
-print(x1)
-print(x2)
-print(final)
-
 
 def f(x1, x2):
     return 0.25*x1**4 - 3*x1**3 + 11*x1**2 - 13*x1 + 0.25*x2**4 - 3*x2**3 + 11*x2**2 - 13*x2
@@ -64,7 +32,7 @@ while t < max_iter:
 x1 = bin_to_float(X[0:5])
 x2 = bin_to_float(X[5:10])
 final = f(x1, x2)
-print("Solução final:", X)
+print("Solucao final:", X)
 print("x1:", x1)
 print("x2:", x2)
 print("f(x1, x2):", final)
