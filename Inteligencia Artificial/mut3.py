@@ -44,7 +44,6 @@ parada = 0
 while recomb < max_recomb:
     popula_filhos(X_list)
 
-    print(parada)
     while i < len(N_list):
         X = N_list[i] 
         while t < max_iter:     
@@ -70,15 +69,11 @@ while recomb < max_recomb:
                     else:
                         parada += 1
             t += 1
-            # if parada == 3:
-            #     break
+            
         i += 1
-        # if parada == 3:
-        #     break
+        
         t = 0
     recomb += 1
-    # if parada == 3:
-    #     break
 
 print(f"Melhor individuo: {melhor}")
 x1 = bin_to_float(melhor[0:5])
