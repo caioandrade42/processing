@@ -4,8 +4,8 @@ from copy import deepcopy
 moedas = [1,5,11,20]
 
 def algoritmo_guloso(valor_troco):
-    moedas_ordenadas = sorted(moedas, reverse=False)     
-    resultado = [4]        
+    moedas_ordenadas = sorted(moedas, reverse=True)     
+    resultado = [0,0,0,0]        
     restante = valor_troco        
     for moeda in moedas_ordenadas:
         while restante >= moeda:
@@ -17,8 +17,7 @@ def algoritmo_guloso(valor_troco):
                 resultado[2] += 1
             elif moeda == 20:
                 resultado[3] += 1
-            restante -= moeda
-    print(resultado[1])        
+            restante -= moeda        
     return resultado
 
 def popula_individuos(quantidade_individuos, valor_troco):
@@ -83,12 +82,10 @@ valor_troco = int(input())
 print("Digite o numero de individuos: ")
 quantidade_individuos = int(input())
 metodo_guloso = algoritmo_guloso(valor_troco)
-print(f"{metodo_guloso}")
 X_list = []
 X_list.append(metodo_guloso)
 N_list = []
 melhor = []
-print(f"{X_list}")
 
 melhor.append(X_list)
 melhor.append(X_list)
