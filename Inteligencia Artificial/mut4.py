@@ -1,30 +1,28 @@
 import random
 from copy import deepcopy
 
-
-
 moedas = [1,5,11,20]
 
 def algoritmo_guloso(valor_troco):
-    def algoritmo_guloso(valor_troco):
-        moedas_ordenadas = sorted(moedas, reverse=True)        
-        resultado = [0,0,0,0]        
-        restante = valor_troco        
-        for moeda in moedas_ordenadas:
-            while restante >= moeda:
-                if moeda == 1:
-                    resultado[0] += 1
-                elif moeda == 5:
-                    resultado[1] += 1
-                elif moeda == 11:
-                    resultado[2] += 1
-                elif moeda == 20:
-                    resultado[3] += 1
-                restante -= moeda        
-        return resultado
+    moedas_ordenadas = sorted(moedas, reverse=False)     
+    resultado = [4]        
+    restante = valor_troco        
+    for moeda in moedas_ordenadas:
+        while restante >= moeda:
+            if moeda == 1:
+                resultado[0] += 1
+            elif moeda == 5:
+                resultado[1] += 1
+            elif moeda == 11:
+                resultado[2] += 1
+            elif moeda == 20:
+                resultado[3] += 1
+            restante -= moeda
+    print(resultado[1])        
+    return resultado
 
 def popula_individuos(quantidade_individuos, valor_troco):
-    for _ in range quantidade_individuos:
+    for _ in range(quantidade_individuos):
         individuo = [0,0,0,0]
         restante = valor_troco
         while restante > 0:
@@ -62,17 +60,38 @@ def muta_individuo(individuo):
             individuo[i] = individuo[i] + random.choice([-1, 1])
     return individuo
 
+def calcula_moedas(individuo):
+    soma = 0
+    troco_resultante = 0
+    troco_resultante =troco_resultante + individuo[0]*1
+    troco_resultante = troco_resultante + individuo[1]*5
+    troco_resultante = troco_resultante + individuo[2]*11
+    troco_resultante = troco_resultante + individuo[3]*20
+    if troco_resultante == valor_troco:
+        return true
+    else :
+        return false
+
+def quantidade_moedas(individuo):
+    quantidade = 0
+    for i in range(4):
+        quantidade += individuo[i]
+    return quantidade
+
 print("Digite o valor do troco: ")
 valor_troco = int(input())
 print("Digite o numero de individuos: ")
-quantidade_individuos = int(input()-1)
+quantidade_individuos = int(input())
 metodo_guloso = algoritmo_guloso(valor_troco)
+print(f"{metodo_guloso}")
 X_list = []
 X_list.append(metodo_guloso)
 N_list = []
+melhor = []
+print(f"{X_list}")
 
-
-melhor = X_list[0]
+melhor.append(X_list)
+melhor.append(X_list)
 
 t = 0
 final = float('inf')
@@ -89,20 +108,12 @@ while recomb < max_recomb:
 
     while i < len(N_list):
         X = N_list[i] 
-        while t < max_iter:     
-            Z = [int(random.gauss(0, 1)) for _ in range(10)]
-            Y = [(X[i] + Z[i]) % 2 for i in range(10)]        
+        while t < max_iter:             
             if(random.randint(0, 3) == 0):
-                if muta_individuo(x1_X, x2_X) <= muta_individuo(x1_Y, x2_Y):
-                    X = deepcopy(X)
-                    if muta_individuo(x1_X, x2_X) < muta_individuo(x1_M, x2_M):
-                        melhor = deepcopy(X)
-                    else:
-                        parada += 1
-                else:
-                    X = deepcopy(Y)
-                    if muta_individuo(x1_Y, x2_Y) < muta_individuo(x1_M, x2_M):
-                        melhor = deepcopy(Y)
+                X = muta_individuo(X)                
+                if calcula_moedas(X) & quantidade_moedas(X)<quantidade_moedas(melhor[0]):
+                    if quantidade_moedas(X)<quantidade_moedas(melhor[1]):
+                        melhor[1] = deepcopy(X)
                     else:
                         parada += 1
             t += 1
@@ -112,10 +123,5 @@ while recomb < max_recomb:
         t = 0
     recomb += 1
 
-print(f"Melhor individuo: {melhor}")
-x1 = bin_to_float(melhor[0:5])
-x2 = bin_to_float(melhor[5:10])
-final = muta_individuo(x1, x2)
-print(f"x1: {x1}")
-print(f"x2: {x2}")
-print(f"melhor solucao: {final}\n")
+print(f"Melhor individuo: {melhor[1]}")
+print(f"Melhor individuo usando algoritmo guloso: {melhor[0]}")

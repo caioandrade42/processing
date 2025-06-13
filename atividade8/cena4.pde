@@ -8,6 +8,10 @@ class Cena4{
     this.cor2 = cor2;
     this.cor3 = cor3;
   }
+  void desenhar(){
+    background(0);
+    fill(255);
+  }
   void move(){
     x = lerp(x, mouseX, 0.1);
     y = lerp(y, mouseY, 0.1);

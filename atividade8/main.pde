@@ -15,12 +15,6 @@ void setup() {
 }
 
 void draw() {
-  if (mousePressed) {
-    cena =cena + 1;
-    if (cena > 4) {
-      cena = 1;
-    }
-  }
   if (cena ==1) {
     cena1.desenhar();
   }else if (cena == 2) {
@@ -29,13 +23,23 @@ void draw() {
     cena3.adicionar(mouseX, mouseY);
     cena3.desenhar();    
   }else if (cena == 4) {
-    for (int i = 0; i < cena4.length; i++){    
+    background(0);
+    for (int i = 0; i < cena4.length; i++){  
       cena4[0].move();
       cena4[0].mostrarBola(cena4[0]);
       if (i > 0){
         cena4[i].seguirBola(cena4[i], cena4[i-1]);
         cena4[i].mostrarBola(cena4[i]);
       }
+    }
+  }
+}
+
+void keyPressed() {
+  if (key == ' ') {
+    cena++;
+    if (cena > 4) {
+      cena = 1;
     }
   }
 }
