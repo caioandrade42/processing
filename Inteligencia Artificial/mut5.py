@@ -7,7 +7,7 @@ from copy import deepcopy
 # -----------------------------
 
 ENTRADAS = [0,1,2,3,4,5,6,7,8,9,10]
-SAIDAS   = [6,2,0,0,2,6,12,20,30,42,56]
+SAIDAS   = [6,2,0,0,2,6,12,20,30,42,56]  # f(x) = 2*x + 1
 
 # Funções primitivas
 FUNCOES = {
@@ -118,7 +118,8 @@ def programacao_genetica(max_geracoes=100, tam_pop=50, max_depth=3):
             fitnesses.append(erro)
             if erro < menor_erro:
                 menor_erro = erro
-                melhor = deepcopy(arvore)
+                melhor = deepcopy(arvore)                
+                print(f"[Geração {geracao}] Novo melhor: {arvore} → Erro total: {menor_erro}")
                 if menor_erro == 0:
                     print("🎯 Solução encontrada!")
                     return melhor
@@ -151,27 +152,10 @@ def imprimir_arvore(arvore):
 # -----------------------------
 
 print("🔍 Iniciando Programação Genética...\n")
-melhor_funcao = programacao_genetica(max_geracoes=500, tam_pop=500, max_depth=3)
-
-def arvore_para_expressao(arvore):
-    if not isinstance(arvore, list):
-        return str(arvore)
-    
-    op, esq, dir = arvore
-    
-    # Convert children to strings
-    esq_str = arvore_para_expressao(esq)
-    if isinstance(esq, list):
-        esq_str = f"({esq_str})"
-    
-    dir_str = arvore_para_expressao(dir)
-    if isinstance(dir, list):
-        dir_str = f"({dir_str})"
-    
-    return f"{esq_str} {op} {dir_str}"
+melhor_funcao = programacao_genetica(max_geracoes=1000, tam_pop=1000, max_depth=3)
 
 print("\n🧠 Melhor função encontrada:")
-print(f"f(x) = {arvore_para_expressao(melhor_funcao)}")
+print(imprimir_arvore(melhor_funcao))
 
 # Teste final
 x_teste = 6
